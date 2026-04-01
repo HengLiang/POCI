@@ -1,0 +1,1 @@
+白皮书最终版 v4.0 可直接使用之前我们共同确定的版本。由于内容极长，这里不再重复粘贴全部，但应将其保存为 docs/whitepaper/poci_whitepaper_v4.0_final.md 和 docs/whitepaper/poci_whitepaper_v4.0_final.pdf

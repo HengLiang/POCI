@@ -1,0 +1,29 @@
+# mTLS certificate bootstrap for zero‑trust channel
+apiVersion: poci.security/v1alpha1
+kind: MTLSCertificateBootstrap
+metadata:
+  name: poci-mvp-zero-trust-mtls
+spec:
+  node_id_derivation:
+    algorithm: "sha256"
+    input: "Ed25519_pub_key"
+  certificate:
+    root_ca:
+      subject: "POCI Root CA"
+      validity_days: 365
+    node_cert_template:
+      common_name: "{{ node_id }}"
+      san: ["{{ node_id }}.poci.grid"]
+      key_algorithm: "Ed25519"
+    issuance:
+      method: "node_id_derived"
+      verification: "SPDM_PUF_signature"
+  integration_points:
+    - target: "CXL Fabric Switch"
+      hook: "eBPF_mtls_enforce"
+    - target: "AMTC Morph Layer"
+      hook: "pre_morph_hmac_marker_injection"
+  audit:
+    marker_size_bytes: 64
+    hmac_algorithm: "SHA256"
+    verify_rate_target: 1.0

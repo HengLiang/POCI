@@ -1,0 +1,31 @@
+# POCI MVP Architecture & Thermal Bootstrap Configuration
+# Target: CXL 3.0 GFAM + DASS Scheduler + Thermal Monitor
+apiVersion: poci.aegis.grid/v1alpha1
+kind: ComputeGridMVP
+metadata:
+  name: poci-mvp-core-cluster
+spec:
+  cxl_fabric:
+    topology: "Switch-Attached"
+    payload_size_bytes: 512
+    latency_redline_ns: 500
+    queueing_model: "M/D/1"
+    rho_max_threshold: 0.85
+  nodes:
+    - id: "Node_A_GPU"
+      type: "High-Density-Tensor"
+      tdp_w: 1000
+      thermal_threshold_c: 85.0
+      microfluidic_cooling:
+        channel_um: 60
+        flow_rate_m_s: 1.5
+    - id: "Node_B_NPU"
+      type: "Sparse-Scalar"
+      tdp_w: 200
+      thermal_threshold_c: 85.0
+  dass_scheduler:
+    predictive_fallback_deadband: true
+    thermal_inertia_tau_s: 3.6
+    throttling_trigger:
+      min_freq_drop_pct: 5.0
+      min_duration_ms: 200
