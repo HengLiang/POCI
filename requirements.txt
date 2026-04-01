@@ -1,5 +1,5 @@
-numpy>=1.24.3
-scipy>=1.10.1
-cryptography>=41.0.0
-torch>=2.0.0   # 可选，用于 DPI 分类器
-pytest>=7.0.0  # 测试
+numpy>=1.24.0,<=1.26.4
+scipy>=1.10.0,<=1.13.0
+cryptography>=41.0.0,<=43.0.0
+torch>=2.0.0  # optional, for DPI classifier; no upper bound as it's optional
+pytest>=7.0.0
